@@ -11,6 +11,8 @@
 - [x] Ensure compatibility with @echoes-io/utils interfaces
 - [x] Use composite primary keys with names (no auto-increment IDs)
 - [x] Explode Chapter metadata and stats into flat structure
+- [x] Use `Date` type instead of `string` for date fields
+- [x] Add automatic conversion from string to Date in Zod schemas
 
 ## Future Enhancements
 

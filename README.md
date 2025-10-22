@@ -311,7 +311,7 @@ Individual content file (.md with frontmatter). Contains all metadata and text s
 | **Metadata** | | | | |
 | `pov` | `string` | | ✓ | Point of view character |
 | `title` | `string` | | ✓ | Chapter title |
-| `date` | `string` | | ✓ | Chapter date (ISO string or custom format) |
+| `date` | `Date` | | ✓ | Chapter date |
 | `excerpt` | `string` | | ✓ | Brief chapter description |
 | `location` | `string` | | ✓ | Chapter location/setting |
 | `outfit` | `string` | | | Character outfit description (optional) |
@@ -336,7 +336,7 @@ const chapter: Chapter = {
   number: 1,
   pov: 'Alice',
   title: 'First Meeting',
-  date: '2025-01-01',
+  date: new Date('2025-01-01'),
   excerpt: 'Alice meets Bob at the coffee shop',
   location: 'Coffee Shop',
   outfit: 'Blue dress', // optional
@@ -360,7 +360,7 @@ Frontmatter structure for .md files. This is the source of truth that gets repli
 |-------|------|----------|-------------|
 | `pov` | `string` | ✓ | Point of view character |
 | `title` | `string` | ✓ | Chapter title |
-| `date` | `string` | ✓ | Chapter date (ISO string or custom format) |
+| `date` | `string \| Date` | ✓ | Chapter date (accepts both string and Date, converts to Date) |
 | `timeline` | `string` | ✓ | Timeline name |
 | `arc` | `string` | ✓ | Arc name |
 | `episode` | `number` | ✓ | Episode number |
@@ -470,7 +470,7 @@ const chapter: Chapter = {
   number: 1,
   pov: 'Alice',
   title: 'First Meeting',
-  date: '2025-01-01',
+  date: new Date('2025-01-01'),
   excerpt: 'Alice meets Bob at the coffee shop',
   location: 'Coffee Shop',
   words: 1000,
