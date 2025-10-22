@@ -6,7 +6,9 @@ import { z } from 'zod';
 export const ChapterMetadataSchema = z.object({
   pov: z.string().min(1, 'POV character is required'),
   title: z.string().min(1, 'Title is required'),
-  date: z.string().min(1, 'Date is required'),
+  date: z
+    .union([z.string(), z.date()])
+    .transform((val) => (typeof val === 'string' ? new Date(val) : val)),
   timeline: z.string().min(1, 'Timeline is required'),
   arc: z.string().min(1, 'Arc is required'),
   episode: z.number().int().positive('Episode must be a positive integer'),

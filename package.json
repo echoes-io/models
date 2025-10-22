@@ -18,7 +18,7 @@
     "release": "semantic-release"
   },
   "exports": {
-    "./": "./lib/index.js"
+    ".": "./lib/index.js"
   },
   "files": [
     "lib/**/*.{d.ts,js}"
@@ -78,7 +78,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@echoes-io/utils": "^1.1.0",
+    "@echoes-io/utils": "^1.1.1",
     "zod": "^3.23.8"
   }
 }

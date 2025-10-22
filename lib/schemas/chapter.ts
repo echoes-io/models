@@ -13,7 +13,9 @@ export const ChapterSchema = z.object({
   // Metadata fields
   pov: z.string().min(1, 'POV character is required'),
   title: z.string().min(1, 'Title is required'),
-  date: z.string().min(1, 'Date is required'),
+  date: z
+    .union([z.string(), z.date()])
+    .transform((val) => (typeof val === 'string' ? new Date(val) : val)),
   excerpt: z.string().min(1, 'Excerpt is required'),
   location: z.string().min(1, 'Location is required'),
   outfit: z.string().optional(),

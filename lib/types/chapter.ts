@@ -18,8 +18,8 @@ export interface Chapter {
   pov: string;
   /** Chapter title */
   title: string;
-  /** Chapter date (ISO string or custom format) */
-  date: string;
+  /** Chapter date */
+  date: Date;
   /** Brief chapter description */
   excerpt: string;
   /** Chapter location/setting */
