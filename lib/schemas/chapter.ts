@@ -6,7 +6,7 @@ import { z } from 'zod';
 export const ChapterSchema = z.object({
   timelineName: z.string().min(1, 'Timeline name is required'),
   arcName: z.string().min(1, 'Arc name is required'),
-  episodeNumber: z.number().int().positive('Episode number must be a positive integer'),
+  episodeNumber: z.number().int().nonnegative('Episode number must be a non-negative integer'),
   partNumber: z.number().int().positive('Part number must be a positive integer'),
   number: z.number().int().positive('Number must be a positive integer'),
 

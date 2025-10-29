@@ -59,6 +59,30 @@ describe('Episode validation', () => {
     };
     expect(() => validateEpisode(episode)).not.toThrow();
   });
+
+  test('accepts episode with number 0', () => {
+    const episode = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      number: 0,
+      slug: 'prologue',
+      title: 'Prologue',
+      description: 'The beginning',
+    };
+    expect(() => validateEpisode(episode)).not.toThrow();
+  });
+
+  test('rejects episode with negative number', () => {
+    const episode = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      number: -1,
+      slug: 'invalid',
+      title: 'Invalid',
+      description: 'Test',
+    };
+    expect(() => validateEpisode(episode)).toThrow();
+  });
 });
 
 describe('Part validation', () => {
@@ -73,6 +97,32 @@ describe('Part validation', () => {
       description: 'The morning scene',
     };
     expect(() => validatePart(part)).not.toThrow();
+  });
+
+  test('accepts part with episodeNumber 0', () => {
+    const part = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      episodeNumber: 0,
+      number: 1,
+      slug: 'intro',
+      title: 'Introduction',
+      description: 'The intro',
+    };
+    expect(() => validatePart(part)).not.toThrow();
+  });
+
+  test('rejects part with negative episodeNumber', () => {
+    const part = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      episodeNumber: -1,
+      number: 1,
+      slug: 'invalid',
+      title: 'Invalid',
+      description: 'Test',
+    };
+    expect(() => validatePart(part)).toThrow();
   });
 });
 
@@ -183,5 +233,49 @@ describe('Chapter validation', () => {
       readingTimeMinutes: 5,
     };
     expect(() => validateChapter(chapter)).not.toThrow();
+  });
+
+  test('accepts chapter with episodeNumber 0', () => {
+    const chapter = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      episodeNumber: 0,
+      partNumber: 1,
+      number: 1,
+      pov: 'Alice',
+      title: 'Prologue',
+      date: '2025-01-01',
+      excerpt: 'The beginning',
+      location: 'Coffee Shop',
+      words: 1000,
+      characters: 5000,
+      charactersNoSpaces: 4000,
+      paragraphs: 10,
+      sentences: 50,
+      readingTimeMinutes: 5,
+    };
+    expect(() => validateChapter(chapter)).not.toThrow();
+  });
+
+  test('rejects chapter with negative episodeNumber', () => {
+    const chapter = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      episodeNumber: -1,
+      partNumber: 1,
+      number: 1,
+      pov: 'Alice',
+      title: 'Invalid',
+      date: '2025-01-01',
+      excerpt: 'Test',
+      location: 'Coffee Shop',
+      words: 1000,
+      characters: 5000,
+      charactersNoSpaces: 4000,
+      paragraphs: 10,
+      sentences: 50,
+      readingTimeMinutes: 5,
+    };
+    expect(() => validateChapter(chapter)).toThrow();
   });
 });
