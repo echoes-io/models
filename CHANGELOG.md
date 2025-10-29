@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/echoes-io/models/compare/v1.0.0...v1.0.1) (2025-10-29)
+
+
+### Performance Improvements
+
+* :zap: `episodeNumber` is now `nonnegative`, accepting "0" ([9acb7b5](https://github.com/echoes-io/models/commit/9acb7b52d24344bb33408da7e3a9c2a8b8842bc3))
+
 # 1.0.0 (2025-10-22)
 
 

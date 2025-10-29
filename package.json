@@ -1,7 +1,7 @@
 {
   "name": "@echoes-io/models",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript models and validation schemas for Echoes - Multi-POV storytelling platform. Provides shared types, interfaces, and Zod schemas.",
   "scripts": {
     "lint": "concurrently npm:lint:* --prefixColors auto",
