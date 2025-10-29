@@ -160,6 +160,22 @@ describe('ChapterMetadata validation', () => {
     };
     expect(() => validateChapterMetadata(metadata)).not.toThrow();
   });
+
+  test('validates metadata with Date object', () => {
+    const metadata = {
+      pov: 'Alice',
+      title: 'First Meeting',
+      date: new Date('2025-01-01'),
+      timeline: 'main-story',
+      arc: 'introduction',
+      episode: 1,
+      part: 1,
+      chapter: 1,
+      excerpt: 'Alice meets Bob',
+      location: 'Coffee Shop',
+    };
+    expect(() => validateChapterMetadata(metadata)).not.toThrow();
+  });
 });
 
 describe('TextStats validation', () => {
@@ -225,6 +241,28 @@ describe('Chapter validation', () => {
       location: 'Coffee Shop',
       outfit: 'Blue dress',
       kink: 'romance',
+      words: 1000,
+      characters: 5000,
+      charactersNoSpaces: 4000,
+      paragraphs: 10,
+      sentences: 50,
+      readingTimeMinutes: 5,
+    };
+    expect(() => validateChapter(chapter)).not.toThrow();
+  });
+
+  test('validates chapter with Date object', () => {
+    const chapter = {
+      timelineName: 'main-story',
+      arcName: 'introduction',
+      episodeNumber: 1,
+      partNumber: 1,
+      number: 1,
+      pov: 'Alice',
+      title: 'First Meeting',
+      date: new Date('2025-01-01'),
+      excerpt: 'Alice meets Bob',
+      location: 'Coffee Shop',
       words: 1000,
       characters: 5000,
       charactersNoSpaces: 4000,
