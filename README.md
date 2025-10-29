@@ -106,7 +106,7 @@ erDiagram
         string pov
         string title
         string date
-        string excerpt
+        string summary
         string location
         string outfit "optional"
         string kink "optional"
@@ -159,7 +159,7 @@ This package defines TypeScript interfaces for:
 
 ### Metadata Models
 - `ChapterMetadata` - Frontmatter structure for .md files:
-  - **Required fields**: `pov`, `title`, `date`, `timeline`, `arc`, `episode` (number), `part` (number), `chapter` (number), `excerpt`, `location`
+  - **Required fields**: `pov`, `title`, `date`, `timeline`, `arc`, `episode` (number), `part` (number), `chapter` (number), `summary`, `location`
   - **Optional fields**: `outfit`, `kink`
 - `TextStats` - Text statistics from content analysis:
   - `words`, `characters`, `charactersNoSpaces`, `paragraphs`, `sentences`, `readingTimeMinutes`
@@ -297,26 +297,43 @@ const part: Part = {
 
 ### Chapter
 
-Individual content file (.md with frontmatter). Contains all metadata and text statistics.
+Individual content file (.md with frontmatter). Extends `ChapterMetadata` and `TextStats` from `@echoes-io/utils`.
 
 **Note:** Chapter numbering is continuous within an episode and does NOT reset per part.
 
+**Structure:**
+```typescript
+interface Chapter extends ChapterMetadata, TextStats {
+  timelineName: string;
+  arcName: string;
+  episodeNumber: number;
+  partNumber: number;
+  number: number;
+}
+```
+
 | Field | Type | Key | Required | Description |
 |-------|------|-----|----------|-------------|
+| **Database Keys** | | | | |
 | `timelineName` | `string` | FK, PK | ✓ | Timeline name (foreign key) |
 | `arcName` | `string` | FK, PK | ✓ | Arc name (foreign key) |
 | `episodeNumber` | `number` | FK, PK | ✓ | Episode number (foreign key) |
 | `partNumber` | `number` | FK | ✓ | Part number (indicates which part the chapter belongs to) |
 | `number` | `number` | PK | ✓ | Chapter number (unique within episode) |
-| **Metadata** | | | | |
+| **From ChapterMetadata** | | | | |
 | `pov` | `string` | | ✓ | Point of view character |
 | `title` | `string` | | ✓ | Chapter title |
-| `date` | `Date` | | ✓ | Chapter date |
-| `excerpt` | `string` | | ✓ | Brief chapter description |
+| `date` | `string` | | ✓ | Chapter date (free text, e.g., "2025-01-01 Monday") |
+| `timeline` | `string` | | ✓ | Timeline name (from frontmatter) |
+| `arc` | `string` | | ✓ | Arc name (from frontmatter) |
+| `episode` | `number` | | ✓ | Episode number (from frontmatter) |
+| `part` | `number` | | ✓ | Part number (from frontmatter) |
+| `chapter` | `number` | | ✓ | Chapter number (from frontmatter) |
+| `summary` | `string` | | ✓ | Brief chapter description |
 | `location` | `string` | | ✓ | Chapter location/setting |
 | `outfit` | `string` | | | Character outfit description (optional) |
 | `kink` | `string` | | | Content tags/kinks (optional) |
-| **Text Statistics** | | | | |
+| **From TextStats** | | | | |
 | `words` | `number` | | ✓ | Total word count |
 | `characters` | `number` | | ✓ | Total character count (including spaces) |
 | `charactersNoSpaces` | `number` | | ✓ | Character count excluding spaces |
@@ -329,18 +346,26 @@ Individual content file (.md with frontmatter). Contains all metadata and text s
 **Example:**
 ```typescript
 const chapter: Chapter = {
+  // Database keys
   timelineName: 'main-story',
   arcName: 'introduction',
   episodeNumber: 1,
   partNumber: 1,
   number: 1,
+  // Metadata (from ChapterMetadata)
   pov: 'Alice',
   title: 'First Meeting',
-  date: new Date('2025-01-01'),
-  excerpt: 'Alice meets Bob at the coffee shop',
+  date: '2025-01-01 Monday',
+  timeline: 'main-story',
+  arc: 'introduction',
+  episode: 1,
+  part: 1,
+  chapter: 1,
+  summary: 'Alice meets Bob at the coffee shop',
   location: 'Coffee Shop',
   outfit: 'Blue dress', // optional
   kink: 'romance', // optional
+  // Text statistics (from TextStats)
   words: 1000,
   characters: 5000,
   charactersNoSpaces: 4000,
@@ -360,13 +385,13 @@ Frontmatter structure for .md files. This is the source of truth that gets repli
 |-------|------|----------|-------------|
 | `pov` | `string` | ✓ | Point of view character |
 | `title` | `string` | ✓ | Chapter title |
-| `date` | `string \| Date` | ✓ | Chapter date (accepts both string and Date, converts to Date) |
+| `date` | `string` | ✓ | Chapter date (free text, e.g., "2025-01-01 Monday") |
 | `timeline` | `string` | ✓ | Timeline name |
 | `arc` | `string` | ✓ | Arc name |
 | `episode` | `number` | ✓ | Episode number |
 | `part` | `number` | ✓ | Part number |
 | `chapter` | `number` | ✓ | Chapter number |
-| `excerpt` | `string` | ✓ | Brief chapter description |
+| `summary` | `string` | ✓ | Brief chapter description |
 | `location` | `string` | ✓ | Chapter location/setting |
 | `outfit` | `string` | | Character outfit description (optional) |
 | `kink` | `string` | | Content tags/kinks (optional) |
@@ -376,13 +401,13 @@ Frontmatter structure for .md files. This is the source of truth that gets repli
 const metadata: ChapterMetadata = {
   pov: 'Alice',
   title: 'First Meeting',
-  date: '2025-01-01',
+  date: '2025-01-01 Monday',
   timeline: 'main-story',
   arc: 'introduction',
   episode: 1,
   part: 1,
   chapter: 1,
-  excerpt: 'Alice meets Bob at the coffee shop',
+  summary: 'Alice meets Bob at the coffee shop',
   location: 'Coffee Shop',
 };
 ```
@@ -470,8 +495,13 @@ const chapter: Chapter = {
   number: 1,
   pov: 'Alice',
   title: 'First Meeting',
-  date: new Date('2025-01-01'),
-  excerpt: 'Alice meets Bob at the coffee shop',
+  date: '2025-01-01 Monday',
+  timeline: 'main-story',
+  arc: 'introduction',
+  episode: 1,
+  part: 1,
+  chapter: 1,
+  summary: 'Alice meets Bob at the coffee shop',
   location: 'Coffee Shop',
   words: 1000,
   characters: 5000,
