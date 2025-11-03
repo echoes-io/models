@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/echoes-io/models/compare/v1.0.2...v1.0.3) (2025-11-03)
+
+
+### Performance Improvements
+
+* :arrow_up: Upped zod and other libraries ([364445c](https://github.com/echoes-io/models/commit/364445ca1212d079f379c33511e7d5eef2aa89d2))
+
 ## [1.0.2](https://github.com/echoes-io/models/compare/v1.0.1...v1.0.2) (2025-10-29)
 
 
