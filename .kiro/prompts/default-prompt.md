@@ -57,7 +57,7 @@ Timeline (story universe)
 
 ### Metadata Models
 - `ChapterMetadata` - Frontmatter structure:
-  - **Required**: pov (string), title (string), date (string), timeline (string), arc (string), episode (number), part (number), chapter (number), excerpt (string), location (string)
+  - **Required**: pov (string), title (string), date (string), timeline (string), arc (string), episode (number), part (number), chapter (number), summary (string), location (string)
   - **Optional**: outfit (string), kink (string)
 - `TextStats` - Text statistics: { words: number, characters: number, charactersNoSpaces: number, paragraphs: number, sentences: number, readingTimeMinutes: number }
 - `PublishingInfo` - Publication status and timestamps

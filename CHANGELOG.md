@@ -24,7 +24,7 @@
 
 ### Performance Improvements
 
-* :truck: Moving from `chapter.excerpt` to `chapter.summary`, extending utils model ([44b2407](https://github.com/echoes-io/models/commit/44b2407fd9d898883f351debc41c68965ba04ab5))
+* :truck: Moving from `chapter.summary` to `chapter.summary`, extending utils model ([44b2407](https://github.com/echoes-io/models/commit/44b2407fd9d898883f351debc41c68965ba04ab5))
 
 ## [1.0.1](https://github.com/echoes-io/models/compare/v1.0.0...v1.0.1) (2025-10-29)
 
